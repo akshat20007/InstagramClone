@@ -21,7 +21,7 @@ import com.shashank.sony.fancytoastlib.FancyToast;
 import java.util.List;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
-    private Button btnSave, btnGetAllData;
+    private Button btnSave, btnGetAllData, btnNextActivity;
     private EditText edtName,edtPunchSpeed,edtPunchPower,edtKickSpeed,edtKickPower;
     private TextView txtGetData;
     private String allKickBoxers;
@@ -38,6 +38,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         edtKickSpeed = findViewById(R.id.edtKickSpeed);
         txtGetData = findViewById(R.id.txtGetData);
         btnGetAllData= findViewById(R.id.btnGetAllData);
+        btnNextActivity= findViewById(R.id.btnNextActivity);
 
         txtGetData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +63,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 allKickBoxers ="";
 
                 ParseQuery<ParseObject> queryAll = ParseQuery.getQuery("KickBoxer");
+
+                queryAll.whereGreaterThanOrEqualTo("punchPower",30000);
+                queryAll.setLimit(1);
                 queryAll.findInBackground(new FindCallback<ParseObject>() {
                     @Override
                     public void done(List<ParseObject> objects, ParseException e) {
@@ -83,6 +87,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                     }
                 });
+
+            }
+        });
+
+        btnNextActivity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });
